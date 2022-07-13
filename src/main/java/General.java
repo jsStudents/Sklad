@@ -10,11 +10,7 @@ public class General {
         try {
             FileInputStream fis = new FileInputStream("workers.bin");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            int workersCount = ois.readInt();
-            for (int i = 0; i < workersCount; i++) {
-                Workers worker = (Workers) ois.readObject();
-                array.add(worker);
-            }
+            array = (ArrayList<Workers>) ois.readObject();
             ois.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -29,11 +25,13 @@ public class General {
                     Input command:
                         0 - exit.
                         1 - Create worker.
+                        2 - Delete worker.
                         8 - Print workers.
                         9 - Save changes.""");
             userChoice = commandInput();
             switch (userChoice) {
                 case 1 -> createWorker(array);
+                case 2 -> deleteWorker(array);
                 case 8 -> printWorkers(array);
                 case 9 -> saveChanges(array);
             }
@@ -69,9 +67,23 @@ public class General {
         System.out.println(worker);
     }
 
+    static void deleteWorker(ArrayList<Workers> array) {
+        System.out.println("Who do you want to remove: ");
+        printToId(array);
+        System.out.println("Input the id to remove worker: ");
+        int deleteId = Integer.parseInt(scanner.nextLine());
+        array.removeIf(nextWorker -> nextWorker.getId() == deleteId);
+    }
+
     static void printWorkers(ArrayList<Workers> array) {
         for (Workers worker : array) {
             System.out.println(worker);
+        }
+    }
+
+    static void printToId(ArrayList<Workers> array) {
+        for(Workers worker : array) {
+            System.out.printf("Id - %d\nName - %s\n", worker.getId(), worker.getName());
         }
     }
 
@@ -79,10 +91,7 @@ public class General {
         try {
             FileOutputStream fos = new FileOutputStream("workers.bin");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeInt(array.size());
-            for(Workers worker : array) {
-                oos.writeObject(worker);
-            }
+            oos.writeObject(array);
             oos.close();
         } catch (IOException e) {
             e.printStackTrace();
