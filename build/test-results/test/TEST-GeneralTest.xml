@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="GeneralTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-07-14T05:36:00" hostname="DESKTOP-EAUA93K" time="0.063">
+<testsuite name="GeneralTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-07-14T06:21:00" hostname="DESKTOP-EAUA93K" time="0.148">
   <properties/>
-  <testcase name="initialArray()" classname="GeneralTest" time="0.063"/>
-  <system-out><![CDATA[0
+  <testcase name="initialArray()" classname="GeneralTest" time="0.148"/>
+  <system-out><![CDATA[162
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

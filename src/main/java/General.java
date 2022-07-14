@@ -8,10 +8,10 @@ public class General {
     static ArrayList<Workers> initialArray() {
         ArrayList<Workers> array = new ArrayList<>();
         try {
-            File file = new File("workers.bin");
             FileInputStream fis = new FileInputStream("workers.bin");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            for (int i = 0; i < (int) file.length(); i++) {
+            int count = ois.readInt();
+            for (int i = 0; i < count; i++) {
                 array.add((Workers) ois.readObject());
             }
             ois.close();
@@ -29,13 +29,15 @@ public class General {
                         0 - exit.
                         1 - Create worker.
                         2 - Delete worker.
+                        3 - Change worker.
                         8 - Print workers.
                         9 - Save changes.""");
             userChoice = commandInput();
             switch (userChoice) {
-                case 1 -> createWorker(array);
-                case 2 -> deleteWorker(array);
-                case 8 -> printWorkers(array);
+                case 1 -> WorkersMethods.createWorker(array);
+                case 2 -> WorkersMethods.deleteWorker(array);
+                case 3 -> WorkersMethods.changeWorker(array);
+                case 8 -> WorkersMethods.printWorkers(array);
                 case 9 -> saveChanges(array);
             }
         }
@@ -56,41 +58,9 @@ public class General {
         return result;
     }
 
-    static void createWorker(ArrayList<Workers> array) {
-        System.out.println("Input the id: ");
-        int id = Integer.parseInt(scanner.nextLine());
-        System.out.println("Input the first name: ");
-        String firstName = scanner.nextLine();
-        System.out.println("Input the last name: ");
-        String lastName = scanner.nextLine();
-        System.out.println("Input the phone number: ");
-        String phoneNumber = scanner.nextLine();
-        System.out.println("Input the position: ");
-        String position = scanner.nextLine();
-        System.out.println("Input salary: ");
-        int salary = Integer.parseInt(scanner.nextLine());
-        Workers worker = new Workers(id, firstName, lastName, phoneNumber, position, salary);
-        array.add(worker);
-        System.out.println(worker);
-    }
-
-    static void deleteWorker(ArrayList<Workers> array) {
-        System.out.println("Who do you want to remove: ");
-        printToId(array);
-        System.out.println("Input the id to remove worker: ");
-        int deleteId = Integer.parseInt(scanner.nextLine());
-        array.removeIf(nextWorker -> nextWorker.getId() == deleteId);
-    }
-
-    static void printWorkers(ArrayList<Workers> array) {
-        for (Workers worker : array) {
-            System.out.println(worker);
-        }
-    }
-
     static void printToId(ArrayList<Workers> array) {
-        for(Workers worker : array) {
-            System.out.printf("Id - %d\nLast name - %s\n", worker.getId(), worker.getLastName());
+        for (Workers worker : array) {
+            System.out.printf("Id - %d, Last name - %s\n", array.indexOf(worker) + 1, worker.getLastName());
         }
     }
 
@@ -98,7 +68,8 @@ public class General {
         try {
             FileOutputStream fos = new FileOutputStream("workers.bin");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            for(Workers worker : array) {
+            oos.writeInt(array.size());
+            for (Workers worker : array) {
                 oos.writeObject(worker);
             }
             oos.close();

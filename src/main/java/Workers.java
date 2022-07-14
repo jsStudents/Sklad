@@ -2,15 +2,13 @@ import java.io.Serializable;
 
 public class Workers implements Serializable {
 
-    private int id;
     private String firstName;
     private String lastName;
     private String phoneNumber;
     private String position;
     private int salary;
 
-    public Workers(int id, String firstName, String lastName, String phoneNumber, String position, int salary) {
-        this.id = id;
+    public Workers(String firstName, String lastName, String phoneNumber, String position, int salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
@@ -27,17 +25,9 @@ public class Workers implements Serializable {
                 Phone - %s;
                 Position - %s;
                 """.formatted(this.getFirstName(),
-                              this.getLastName(),
-                              this.getPhoneNumber(),
-                              this.getPosition());
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+                this.getLastName(),
+                this.getPhoneNumber(),
+                this.getPosition());
     }
 
     public String getFirstName() {
