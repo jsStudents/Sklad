@@ -3,27 +3,65 @@ import java.io.Serializable;
 public class Workers implements Serializable {
 
     private int id;
-    private String name;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
     private String position;
     private int salary;
 
-    public Workers(int id, String name, String position, int salary) {
+    public Workers(int id, String firstName, String lastName, String phoneNumber, String position, int salary) {
         this.id = id;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
         this.position = position;
         this.salary = salary;
     }
 
-    public int getId() {return id;}
 
-    public void setId(int id) {this.id = id;}
-
-    public String getName() {
-        return name;
+    public String toString() {
+        return """
+                ======================================
+                First name - %s;
+                Last name - %s;
+                Phone - %s;
+                Position - %s;
+                """.formatted(this.getFirstName(),
+                              this.getLastName(),
+                              this.getPhoneNumber(),
+                              this.getPosition());
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getPosition() {
@@ -40,18 +78,5 @@ public class Workers implements Serializable {
 
     public void setSalary(int salary) {
         this.salary = salary;
-    }
-
-    public String toString() {
-        return """
-                ======================================
-                Id - %d;
-                Name - %s;
-                Position - %s;
-                Salary - %d
-                ======================================""".formatted(this.getId(),
-                                                                    this.getName(),
-                                                                    this.getPosition(),
-                                                                    this.getSalary());
     }
 }

@@ -59,13 +59,17 @@ public class General {
     static void createWorker(ArrayList<Workers> array) {
         System.out.println("Input the id: ");
         int id = Integer.parseInt(scanner.nextLine());
-        System.out.println("Input the name: ");
-        String name = scanner.nextLine();
+        System.out.println("Input the first name: ");
+        String firstName = scanner.nextLine();
+        System.out.println("Input the last name: ");
+        String lastName = scanner.nextLine();
+        System.out.println("Input the phone number: ");
+        String phoneNumber = scanner.nextLine();
         System.out.println("Input the position: ");
         String position = scanner.nextLine();
         System.out.println("Input salary: ");
         int salary = Integer.parseInt(scanner.nextLine());
-        Workers worker = new Workers(id, name, position, salary);
+        Workers worker = new Workers(id, firstName, lastName, phoneNumber, position, salary);
         array.add(worker);
         System.out.println(worker);
     }
@@ -86,7 +90,7 @@ public class General {
 
     static void printToId(ArrayList<Workers> array) {
         for(Workers worker : array) {
-            System.out.printf("Id - %d\nName - %s\n", worker.getId(), worker.getName());
+            System.out.printf("Id - %d\nLast name - %s\n", worker.getId(), worker.getLastName());
         }
     }
 
