@@ -1,11 +1,10 @@
+import java.io.File;
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        int version;
-        System.out.println("Version: ");
-        version = Integer.parseInt(General.scanner.nextLine());
-        ArrayList<Workers> arrayWorkers = (version > 0) ? General.initialArray() : new ArrayList<>();
+        File file = new File("workers.bin");
+        ArrayList<Workers> arrayWorkers = (file.length() == 0 ? new ArrayList<>() : General.initialArray());
         General.general(arrayWorkers);
     }
 }

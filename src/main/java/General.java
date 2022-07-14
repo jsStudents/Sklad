@@ -8,9 +8,12 @@ public class General {
     static ArrayList<Workers> initialArray() {
         ArrayList<Workers> array = new ArrayList<>();
         try {
+            File file = new File("workers.bin");
             FileInputStream fis = new FileInputStream("workers.bin");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            array = (ArrayList<Workers>) ois.readObject();
+            for (int i = 0; i < (int) file.length(); i++) {
+                array.add((Workers) ois.readObject());
+            }
             ois.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -91,12 +94,13 @@ public class General {
         try {
             FileOutputStream fos = new FileOutputStream("workers.bin");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(array);
+            for(Workers worker : array) {
+                oos.writeObject(worker);
+            }
             oos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
 
